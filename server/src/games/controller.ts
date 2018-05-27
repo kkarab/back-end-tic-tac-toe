@@ -1,4 +1,4 @@
-import { JsonController, Get, Param} from 'routing-controllers';
+import { JsonController, Get, Post, Body, Param} from 'routing-controllers';
 import Game from './entity';
 
 @JsonController()
@@ -17,4 +17,14 @@ async allGames() {
   return { games }
 }
 
+@Post('/games')
+async createGame(
+      @Body() game: Game
+) {
+      const {Name, ...rest} = game
+      const entity = Game.create(rest)
+      await entity.initColor()
+      await entity.initBoard()
+      return entity.save()
+    }
 }

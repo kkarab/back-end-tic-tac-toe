@@ -1,8 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { BaseEntity } from 'typeorm/repository/BaseEntity';
-import { IsString, MinLength, IsEnum, IsArray } from 'class-validator';
+import { IsString, MinLength, IsArray } from 'class-validator';
+import {_} from 'underscore';
 
-enum Colors {red,green,blue,yellow,magenta}
+const colors = ["red","green","blue","yellow","magenta"]
+
+const defaultBoard = [
+	['o', 'o', 'o'],
+	['o', 'o', 'o'],
+	['o', 'o', 'o']
+]
 
 @Entity()
 export default class Game extends BaseEntity {
@@ -15,12 +22,19 @@ export default class Game extends BaseEntity {
   @Column('text', {nullable:false})
   Name: string
 
-  @IsEnum(Colors)
+  @IsString()
   @Column('text', {nullable:false})
-  Color: Colors
+  Color: string
 
   @IsArray()
   @Column('json', {nullable:false})
   Board: Array<Array<string>>
 
+  async initColor() {
+      this.Color = _.sample(colors)
+  }
+
+  async initBoard() {
+      this.Board = defaultBoard
+  }
 }

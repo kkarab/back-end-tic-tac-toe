@@ -8,6 +8,7 @@
     "@types/koa-bodyparser": "^4.2.0",
     "@types/koa-multer": "^1.0.0",
     "@types/koa-router": "^7.0.28",
+    "@types/underscore": "^1.8.8",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-multer": "^1.0.2",
@@ -15,7 +16,8 @@
     "pg": "^7.4.3",
     "routing-controllers": "^0.7.7",
     "typeorm": "^0.2.6",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "underscore": "^1.9.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.5",
