@@ -1,6 +1,12 @@
 import { JsonController, Get, Post, Put, Body, Param, NotFoundError} from 'routing-controllers';
 import Game from './entity';
 
+const moves = (board1, board2) => 
+  board1
+    .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
+    .reduce((a, b) => a.concat(b))
+    .length
+
 @JsonController()
 export default class UserController { 
 
@@ -36,6 +42,13 @@ async updateGame(
 ) {
   const game = await Game.findOne(id)
   if (!game) throw new NotFoundError('Cannot find game')
+  if (Colors.indexOf(update.Color) === -1) {
+      throw new Error('color should be red,blue,green,yellow,magenta')
+  }
+
+  if (moves(game.board,update.board) > 1) {
+      throw new Error('Only one move is allowed!')
+  } 
 
   return Game.merge(game, update).save()
     }
